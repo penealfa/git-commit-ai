@@ -13,14 +13,14 @@ A VS Code extension that suggests meaningful Git commit messages based on your s
 
 ## Installation
 
-1. **Install from VS Code Marketplace** (once published):
+1. **Install from VS Code Marketplace**:
    - Search for `Git Commit AI` in the Extensions view (Ctrl+Shift+X or Cmd+Shift+X).
    - Click **Install**.
 
 2. **Manual Installation** (for development):
    - Clone this repository:
      ```bash
-     git clone https://github.com/yourusername/git-commit-ai.git
+     git clone https://github.com/penealfa/git-commit-ai
      cd git-commit-ai
      ```
    - Install dependencies:
