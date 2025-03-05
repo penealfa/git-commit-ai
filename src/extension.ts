@@ -3,30 +3,24 @@ import { GitService } from './git';
 import { AIService } from './ai';
 import { Settings } from './settings';
 
-// Define types for QuickPick items
 interface SuggestionItem extends vscode.QuickPickItem {
   message: string;
 }
 
 interface ActionItem extends vscode.QuickPickItem {
-  // No additional properties, just label and description from QuickPickItem
 }
 
 export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand('git-commit-ai.suggestCommit', async () => {
     try {
-      // Get staged changes
       const diff = GitService.getStagedDiff();
       if (!diff.trim()) {
         vscode.window.showWarningMessage('No staged changes found');
         return;
       }
-
-      // Generate suggestions
       const style = Settings.getCommitStyle();
       const suggestions = await AIService.generateCommitMessage(diff, style);
 
-      // Show UI
       const items: (SuggestionItem | ActionItem)[] = [
         ...suggestions.map((msg): SuggestionItem => ({
           label: msg,
@@ -55,7 +49,6 @@ export function activate(context: vscode.ExtensionContext) {
           value: suggestions[0]
         }) || '';
       } else {
-        // Type guard to check if action has message property
         finalMessage = 'message' in action ? action.message : suggestions[0];
       }
 

@@ -24,7 +24,7 @@ export class AIService {
         this.ENDPOINT,
         {
           inputs: prompt,
-          parameters: { max_new_tokens: 100, temperature: 0.7 } // Increased to allow full message
+          parameters: { max_new_tokens: 100, temperature: 0.7 } 
         },
         {
           headers: {
@@ -40,21 +40,16 @@ export class AIService {
         throw new Error('No generated text in API response');
       }
 
-      // Extract the message after the diff
       const messageStart = generatedText.indexOf(diff) + diff.length;
       let message = generatedText.substring(messageStart).trim();
-
-      // Look for [message] format
       const match = message.match(/\[(.*?)\]/);
       if (match && match[1]) {
         message = match[1].trim();
       } else {
-        // Fallback: Take first line, strip any unwanted prefixes
         const lines = message.split('\n').map((line: string) => line.trim()).filter((line: any) => line);
         message = lines[0].replace(/^(Commit message:|Example output:|\[.*?:)/i, '').trim();
       }
 
-      // Fallback if no valid message
       if (!message || message === generatedText || message === '[message]') {
         message = style === 'conventional' ? 'feat: tweak button text' : 
                   style === 'casual' ? 'Changed the CV button text, yo!' : 

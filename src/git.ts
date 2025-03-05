@@ -4,13 +4,11 @@ import * as vscode from 'vscode';
 export class GitService {
   static getStagedDiff(): string {
     try {
-      // Get the workspace folder (assumes single-root workspace)
       const workspaceFolder = vscode.workspace.workspaceFolders?.[0]?.uri.fsPath;
       if (!workspaceFolder) {
         throw new Error('No workspace folder open');
       }
 
-      // Run git diff --staged in the workspace folder
       return execSync('git diff --staged', { cwd: workspaceFolder, encoding: 'utf8' });
     } catch (error) {
       vscode.window.showErrorMessage('Git error: Unable to fetch staged changes. Is Git installed and a repo initialized?');
