@@ -1,0 +1,53 @@
+{
+  "name": "git-commit-ai",
+  "displayName": "Git Commit AI",
+  "description": "AI-powered commit message suggestions",
+  "version": "0.0.1",
+  "publisher": "PenealFelekeWiseWayTech",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "git-commit-ai.suggestCommit",
+        "title": "Suggest Commit Message"
+      }
+    ],
+    "configuration": {
+      "properties": {
+        "gitCommitAI.apiToken": {
+          "type": "string",
+          "default": "",
+          "description": "Hugging Face API Token"
+        },
+        "gitCommitAI.commitStyle": {
+          "type": "string",
+          "enum": ["conventional", "casual", "detailed"],
+          "default": "conventional",
+          "description": "Commit message style"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/node": "^18.x",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "child-process-promise": "^2.2.1"
+  }
+}
